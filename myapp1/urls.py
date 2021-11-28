@@ -38,10 +38,7 @@ urlpatterns = [
         # Forget Password -----------
 
         # payment -----------------
-        path('check/',v.Checkout,name='check'),
-        path('payment_process/',v.Process_payment,name='process_payment'),
         path('EmailCall/',v.EmailCall,name='emailcall'),
-        path("handlerequest/",v.Handlerequest, name="handlerequest"),
         #path('User_Form/',v.User_Form,name='User_Form'),
         # ========================================== Vender Side =======================
         path('Vender_Login/',v.Vender_Login,name="ved_login"),

@@ -53,12 +53,7 @@ import pdfkit
 # pip install xlutils    # Required when reading excel file
 # pip install xlrd       # Required when reading excel file
 import xlwt
-# Excel ----------------------------
 
-# pip install pycryptodome
-
-MERCHANT_KEY = '@BLNEQSVwvSAf36N'
-MERCHANT_ID = 'DSpKiN27217000419407'
 # Create your views here.
 
 def login(request):
@@ -722,40 +717,6 @@ def cart_order(request):
     else:
         return redirect('login')
 
-# Payment -----------------------------
-
-def Checkout(request):
-    if 'user_data' in request.session.keys():
-        tz= pytz.timezone('Asia/Kolkata')
-        time_now = datetime.datetime.now(timezone.utc).astimezone(tz)
-        millis = int(time.mktime(time_now.timetuple()))
-        order_id = "Order"+str(millis)
-        request.session['Order_id'] = order_id
-        
-        return redirect('process_payment')
-    else:
-        return redirect('login')
-    
-def Process_payment(request):
-    if 'user_data' in request.session.keys():
-        user = UsersData.objects.get(email_id=request.session['user_data'])
-        show_data = request.session['Final_Bill']
-        amo = request.session['Order_total']
-        host = request.get_host()
-        param_dict = {
-            'MID': MERCHANT_ID,
-            'ORDER_ID': str(request.session['Order_id']),
-            'TXN_AMOUNT': str(amo),
-            'CUST_ID': 'darpan_salunke',
-            'INDUSTRY_TYPE_ID': 'Retail',
-            'WEBSITE': 'WEBSTAGING',
-            'CHANNEL_ID': 'WEB',
-            'CALLBACK_URL':'http://{}{}'.format(host,reverse('handlerequest')),
-        }
-        param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict, MERCHANT_KEY)
-        return render(request, 'payMent/paytm.html', {'param_dict': param_dict,'User':user,'Order':show_data})
-    else:
-        return redirect('login')
 
 def EmailCall(request):
     if 'user_data' in request.session.keys():
@@ -765,10 +726,9 @@ def EmailCall(request):
         order_id = request.session['Order_id']
         
         try:
-            my_email = "darpansalunkework@gmail.com"
-            my_pass = "Darpan@work"
-            # fr_email = str(user.email)
-            fr_email = "darpansalunke@gmail.com"
+            my_email = "abc@gmail.com"
+            my_pass = "abc@work"
+            fr_email = str(user.email)
             
             server = smtplib.SMTP('smtp.gmail.com',587)
             mead_data = ""
@@ -907,24 +867,6 @@ def EmailCall(request):
             
         # ================== email end ================
 
-@csrf_exempt
-def Handlerequest(request):
-    form = request.POST
-    response_dict = {}
-    for i in form.keys():
-        response_dict[i] = form[i]
-        if i == 'CHECKSUMHASH':
-            checksum = form[i]
-    verify = Checksum.verify_checksum(response_dict,MERCHANT_KEY,checksum)
-    if verify:
-        if response_dict['RESPCODE'] == '01':
-            print('order successful') 
-            return redirect('emailcall')
-        else:
-            print('order was not successful because' + response_dict['RESPMSG'])
-    return render(request, 'paymentsatus.html', {'response': response_dict})
-
-# Payment -----------------------------
 
 def Profile(request):
     if 'user_data' in request.session.keys():
