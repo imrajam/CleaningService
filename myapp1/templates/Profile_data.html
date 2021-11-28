@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+<section class="slider_section">
+                <div class="banner_main">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mapimg">
+                                <div class="text-bg">
+                                    <h1>The Best<br> <strong class="black_bold">Cleaning Service</strong><br></h1>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="text-img">
+                                    <figure><img src="{% static 'images/bg.jpeg'%}" /></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- end discount -->
+            <!-- trending -->
+            <div class="trending">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="title">
+                                <h2>Customer <strong class="black">Profile</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Name</label>
+                                    <input type="text" class="form-control" id="inputEmail4" value="{{ user_data.u_name }}" name="u_name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4" value="{{ user_data.email_id }}" name="Email">
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Address</label>
+                                    <input type="text" class="form-control" id="inputAddress" value="{{ user_data.address }}" name="address">
+                                    </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Contact No.</label>
+                                        <input type="text" class="form-control" pattern="[6789]{1}[0-9]{9}" value="{{ user_data.contact }}" id="inputEmail4" name="contact">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Password</label>
+                                        <input type="text" class="form-control" id="inputPassword4" value="{{ user_data.password }}" name="Password">
+                                    </div>
+                                    </div>
+                                
+                                
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+            <!-- end trending -->
+
+            <!-- our brand -->
+            
+{% endblock home %}

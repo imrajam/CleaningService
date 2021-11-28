@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+      {% block home %}
+
+      <!-- end header -->
+      <div class="contactus">
+   <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-8 offset-md-2">
+                  <div class="title">
+                     <h2>About</h2>
+                    
+                  </div>
+               </div>
+            </div>
+          </div>
+      </div>
+
+
+
+<div class="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="aboutimg">
+        <h3>About us</h3>
+        <p>Established in the year 2000, Rudra and tripati, are a reliable service provider, occupied in offering Cleaning Services,
+          Pest Control Services, Repairing Services, etc to our clients. 
+          The provided services are conceptualized with client-oriented approach to bring the extreme gratification to our patrons. 
+          The offered gamut of service is rendered in obedience with the quality constraints by our very capable experts who hold rich understanding in this particular field.
+          We have chosen an adroit team of quality supervisors that value the quality of our provided services at each stage of execution to make sure that the norms are effectively met. 
+          Moreover, we follow moral business policies and crystal pure transparency in all our transactions to keep healthy relations with the customers.</p>
+      
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="aboutimg">
+        <figure><img src="{% static 'images/about.jpg'%}" style="height: 500px; width:500px"/></figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      {% endblock home %}

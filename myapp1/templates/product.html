@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+
+      <div class="contactus">
+   <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-8 offset-md-2">
+                  <div class="title">
+                     <h2>Our Services</h2>
+                    
+                  </div>
+               </div>
+            </div>
+          </div>
+</div>
+<div class="ourproduct">
+  <div class="container">
+     <div class="row product_style_3">
+      <!-- product -->
+      <!-- end product -->
+      <!-- product -->
+      
+      {% for p in prod %}
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+              <div class="full product">
+              <div class="product_img">
+                  <div class="center"> <img src="{{ p.imgs.url }}" alt="#"/>
+                    {% if request.session.user_data %}
+                  <div class="overlay_hover"> 
+                      <!-- <a class="add-bt" href="product_detail3.html">+ Add to cart</a>  -->
+                      {% if p|is_in_cart:request.session.cart %}
+                          <div class="row no-gutters">
+                              <form action="{% url 'orders' %}" method="post">
+                                  {% csrf_token %}
+                                  <input hidden type="text" name='product' value='{{p.id}}'>
+                                  <input hidden type="text" name='remove' value='True'>
+                                  <input type="hidden" name="idss_data" value="ids_data">
+                                  <input type="submit" value=" - " class="add-bt">
+                              </form>
+                              <div class="text-center col">&nbsp;<h3 style="margin-top: 10%;">{{p|cart_quantity:request.session.cart}}</h3>&nbsp; in Cart</div>
+                              <form action="{% url 'orders' %}" method="post">
+                                  {% csrf_token %}
+                                  <input hidden type="text" name='product' value='{{p.id}}'>
+                                  <input type="hidden" name="idss_data" value="ids_data">
+                                  <input type="submit" value=" + " class="add-bt">
+                              </form>
+                          </div>
+                      {% else %}
+                          <form action="{% url 'orders' %}" method="POST">
+                              {% csrf_token %}
+                              <input type="hidden" name="idss_data" value="ids_data">
+                              <input hidden type="text" name='product' value='{{p.id}}'>
+                              <input class="add-bt" type="submit" value="+ Add To Cart">
+                          </form>
+                      {% endif %}
+                  </div>
+                  {% endif %}
+                  </div>
+              </div>
+              <div class="product_detail text_align_center">
+                  <h3 class="product_descr"><u><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }}</a></u></h3>
+                  <p class="product_price">₹ {{ p.p_price }} <span class="old_price"></span></p>
+                  <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+              </div>
+              </div>
+          </div>
+      {% endfor %}
+      <!-- end product -->
+    </div>
+  </div>
+</div>
+
+      <!--  footer --> 
+    
+ {% endblock home %}

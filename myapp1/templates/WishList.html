@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+
+      <div class="contactus">
+   <div class="container-fluid">
+            <div class="row">
+               <div class="col-md-8 offset-md-2">
+                  <div class="title">
+                     <h2>WishList</h2>
+                    
+                  </div>
+               </div>
+            </div>
+          </div>
+</div>
+<div class="ourproduct">
+  <div class="container">
+     <div class="row product_style_3">
+      <!-- product -->
+      <!-- end product -->
+      <!-- product -->
+      
+      {% for p in prod %}
+          <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+              <div class="full product">
+              <div class="product_img">
+                  <div class="center"> <img src="{{ p.P_id.imgs.url }}" style="height: 500px; width:300px" alt="#"/>
+                  </div>
+              </div>
+              <div class="product_detail text_align_center">
+                  <h3 class="product_descr"><u><a href="{% url 'Show_Product' p.P_id.id %}">{{ p.P_id.p_name }}</a></u></h3>
+                  <p class="product_price">${{ p.P_id.p_price }} <span class="old_price"></span></p>
+                  <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+              </div>
+              </div>
+          </div>
+      {% endfor %}
+      <!-- end product -->
+    </div>
+  </div>
+</div>
+      <!--  footer -->     
+ {% endblock home %}

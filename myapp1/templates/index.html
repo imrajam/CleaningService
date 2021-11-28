@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+<section class="slider_section">
+                <div class="banner_main">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mapimg">
+                                <div class="text-bg">
+                                    <h1>The Best<br> <strong class="black_bold">Cleaning Services</strong><br></h1>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="text-img">
+                                    <figure><img src="{% static 'images/bg.jpeg'%}" /></figure>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- discount -->
+            <div class="container">
+                <br><br><br><br><br>
+                    <div class="container">
+                        <form action="" method="GET">
+                            <input type="text" name="search" class="form-control fa fa-search" placeholder="search ..">
+                        </form>
+                    </div>
+
+                    <br><br>
+                    <div class="continer">
+                        
+                        {% if pro %}
+                            <h1>Data product</h1>
+                            
+                                <li>
+                            <div class="trending">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-8 offset-md-2">
+                                            <div class="title">
+                                                <h2><strong class="black"><br>Products</strong></h2>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        {% for p in pro %}
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                                <div class="full product">
+                                                <div class="product_img">
+                                                    <div class="center"> <img src="{{ p.imgs.url }}" alt="#"/>
+                                                    
+                                                    </div>
+                                                </div>
+                                                <div class="product_detail text_align_center">
+                                                    <h3 class="product_descr"><u><a href="{% url 'Show_Product' p.id %}">{{ p.p_name }}</a></u></h3>
+                                                    <p class="product_price">${{ p.p_price }} <span class="old_price"></span></p>
+                                                    <!-- <p class="product_descr">Lightweight Down Puffer Coat</p> -->
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                                </li>
+                            
+                            <br><br><br><hr>    
+                        {% endif %}
+
+                        {% if des %}
+                            <h1>Vender</h1>
+                            <div class="row">
+                                {% for dealer in des %}
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-10 margitop">
+                                        <div class="trending-box">
+                                            <figure><img src="{{ dealer.shop_img.url }}" /></figure>
+                                            <a href="{% url 'Shop_View' dealer.id %}"><h3>{{ dealer.Shop_name }}</h3></a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+            </div>
+            <!-- end discount -->
+            <!-- trending -->
+            <div class="trending">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="title">
+                                <h2>Trending <strong class="black">Services</strong></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for i in owns %}
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-10 margitop">
+                                <div class="trending-box">
+                                    <figure><img src="{{ i.shop_img.url }}"  style="height: 300px; width:500px"/></figure>
+                                    <a href="{% url 'Shop_View' i.id %}"><h3>{{ i.Shop_name }}</h3></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+            <!-- end trending -->
+
+            <!-- our brand -->
+            <!-- <div class="container"> 
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="panel panel-info">
+                                 <div class="panel-heading">
+                                    BASIC FORM
+                                 </div>
+                                 <div class="panel-body">
+                                     <form role="form">
+                                                 <div class="form-group">
+                                                     <label>Enter Name</label>
+                                                     <input class="form-control" type="text">
+                                                     <p class="help-block">Help text here.</p>
+                                                 </div>
+                                          <div class="form-group">
+                                                     <label>Enter Email</label>
+                                                     <input class="form-control" type="text">
+                                              <p class="help-block">Help text here.</p>
+                                                 </div>
+                                                     <div class="form-group">
+                                                     <label>Text area</label>
+                                                     <textarea class="form-control" rows="3"></textarea>
+                                                 </div>
+                                           
+                                          
+                                                 <button type="submit" class="btn btn-info">Send Message </button>
+         
+                                             </form>
+                                     </div>
+                                 </div>
+                     </div>
+                </div>
+            </div> -->
+            
+            <!-- end our brand -->
+           <!-- map -->
+          <!--   <div class="contact">
+                <div class="container-fluid padddd">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="title">
+                                <h2>Contact <strong class="black">Us</strong></h2>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 padddd">
+                             <div class="map_section">
+                     <div id="map">
+                     </div>
+                   </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 padddd">
+                            <form class="main_form">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Name" type="text" name="Name">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Email" type="text" name="Email">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <input class="form-control" placeholder="Phone" type="text" name="Phone">
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                        <button class="send">Send</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- end map -->
+            <!--  footer -->
+{% endblock home %}

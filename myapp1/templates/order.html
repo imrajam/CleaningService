@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+{% load cart %}
+{% load custom_filter %}
+<br>
+<div class="container">
+   <div class="border rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4">Your Cart</p>
+        <hr>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Service</th>
+                    <th>Price</th>
+                    <th>Product to clean</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for product in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 80px;" src="{{product.imgs.url}}" alt=""></td>
+                    <td>{{product.p_name}}</td>
+                    <td>{{product.p_price|currency}}</td>
+                    
+                    <td> 
+                    {% comment %}
+                        {{product|cart_quantity:request.session.cart}}
+                    {% endcomment %}
+
+
+                            {% if product|is_in_cart:request.session.cart %}
+                            <div class="row no-gutters">
+                                <form action="{% url 'orders' %}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='product' value='{{product.id}}'>
+                                    <input hidden type="text" name='remove' value='True'>
+                                    <input type="hidden" name="pay_data" value="pay_data">
+                                    <input type="submit" value=" - " class="btn"> 
+                                </form>
+                                <div class="text-center col">{{product|cart_quantity:request.session.cart}}</div>
+                                <form action="{% url 'orders' %}" method="post">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='product' value='{{product.id}}'>
+                                    <input type="hidden" name="pay_data" value="pay_data">
+                                    <input type="submit" value=" + " class="btn">
+                                </form>
+                            </div>
+                        {% else %}
+                            <form action="{% url 'orders' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="pay_data" value="pay_data">
+                                <input hidden type="text" name='product' value='{{product.id}}'>
+                                <input class="add-bt" type="submit" value="+ Add To Cart">
+                            </form>
+                        {% endif %}
+
+                    </td>
+
+
+
+                    <td>{{product|price_total:request.session.cart|currency}}</td>
+                </tr>
+
+                {% endfor %}
+               
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="4"></th>
+                    <th class="" colspan="">Total</th>
+                    <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <hr>
+        <div class="m-3 p-3">
+            <!-- <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="total_price" value="{{products|total_cart_price:request.session.cart}}">
+                <input class="btn btn-outline-info border rounded  col-lg-3 float-right" type="submit" name="submit" value="Online Payment">
+            </form> -->
+
+            <a href="{% url 'COD' %}" class="btn btn-outline-info border rounded  col-lg-3 float">Cash On Delivery</a>
+            <br>
+            <br>
+            <br>
+        </div>
+   </div>
+</div>
+<br>
+
+{% endblock home %}

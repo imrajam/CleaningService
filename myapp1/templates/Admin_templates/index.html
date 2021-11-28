@@ -1,0 +1,80 @@
+﻿{% extends 'Admin_templates/admin_base.html' %}
+{% load static %}
+{% block 'content'%}
+<div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title">WoodMart Furniture Stores Dashboard </h2>
+            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">WoodMart Furniture Stores Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <br><br>
+        <div class="container">
+            <form action="" method="GET">
+                <input type="text" name="search" class="form-control fa fa-search" placeholder="search ..">
+            </form>
+        </div>
+
+        <br><br>
+        <div class="continer">
+            {% if pro %}
+                <h1>Products</h1>
+                <div class="trending">
+                    <div class="container-fluid">
+                        
+                        <div class="row">
+                            {% for p in pro %}
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="{{ p.imgs.url }}" alt="Card image cap">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{ p.p_name }}</h5>
+                                          <p class="card-text">${{ p.p_price }}</p>
+                                          <a href="{% url 'Update_product_form' p.id %}" class="btn btn-primary">View</a>
+                                        </div>
+                                      </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <br>   
+            {% endif %}
+
+
+            <h1>Categories</h1>
+            <div class="trending">
+                    <div class="container-fluid">
+                        
+                        <div class="row">
+                            {% for i in cate %}
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card" style="width: 18rem;">
+                                        <img class="card-img-top" src="{{ i.c_image.url }}" alt="Card image cap">
+                                        <div class="card-body">
+                                          <h5 class="card-title">{{ i.c_name }}</h5>
+                                          <a href="{% url 'category_form' %}" class="btn btn-primary">View</a>
+                                        </div>
+                                      </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+</div>
+
+{% endblock 'content' %}
